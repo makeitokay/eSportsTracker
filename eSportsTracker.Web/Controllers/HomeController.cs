@@ -1,8 +1,9 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using eSportsTracker.Models;
+// using eSportsTracker.Data.Models;
+using eSportsTracker.Web.ViewModels;
 
-namespace eSportsTracker.Controllers;
+namespace eSportsTracker.Web.Controllers;
 
 public class HomeController : Controller
 {

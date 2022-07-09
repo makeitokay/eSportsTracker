@@ -1,4 +1,4 @@
-namespace eSportsTracker.Models;
+namespace eSportsTracker.Web.ViewModels;
 
 public class ErrorViewModel
 {

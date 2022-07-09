@@ -12,6 +12,11 @@
 
     <ItemGroup>
       <Folder Include="wwwroot\lib\" />
+      <Folder Include="Configuration\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\eSportsTracker.Data\eSportsTracker.Data.csproj" />
     </ItemGroup>
 
 </Project>
