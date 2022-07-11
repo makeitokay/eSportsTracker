@@ -7,7 +7,7 @@ using eSportsTracker.Web.Areas.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
-    options.SignIn.RequireConfirmedAccount = true;
+    options.SignIn.RequireConfirmedAccount = false;
     options.User.RequireUniqueEmail = true;
     })
     .AddErrorDescriber<RussianErrorDescriber>()
