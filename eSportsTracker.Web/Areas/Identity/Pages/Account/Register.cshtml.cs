@@ -64,13 +64,28 @@ namespace eSportsTracker.Web.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required]
+            [StringLength(20, ErrorMessage = "Имя должно состоять минимум из двух и максимум из 20 символов.", MinimumLength = 2)]
+            [Display(Name = "Имя")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [StringLength(20, ErrorMessage = "Фамилия должна состоять минимум из двух и максимум из 20 символов.", MinimumLength = 2)]
+            [Display(Name = "Фамилия")]
+            public string LastName { get; set; }
+
+            [Required]
+            [StringLength(20, ErrorMessage = "Никнейм должен состоять минимум из двух и максимум из 20 символов.", MinimumLength = 2)]
+            [Display(Name = "Никнейм")]
+            public string Username { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
+            [EmailAddress(ErrorMessage = "Некорректная электронная почта.")]
+            [Display(Name = "Электронная почта")]
             public string Email { get; set; }
 
             /// <summary>
@@ -78,9 +93,9 @@ namespace eSportsTracker.Web.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "{0} должен состоять минимум из {2} и максимум из {1} символов.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Пароль")]
             public string Password { get; set; }
 
             /// <summary>
@@ -88,8 +103,8 @@ namespace eSportsTracker.Web.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Пароль ещё раз")]
+            [Compare("Password", ErrorMessage = "Пароли не совпадают.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -108,7 +123,11 @@ namespace eSportsTracker.Web.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                // TODO: Is it a good practice to set values not through the UserStore?
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+
+                await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

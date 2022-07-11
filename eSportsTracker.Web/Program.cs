@@ -2,12 +2,18 @@ using eSportsTracker.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using eSportsTracker.Data.Models;
+using eSportsTracker.Web.Areas.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
+    options.SignIn.RequireConfirmedAccount = true;
+    options.User.RequireUniqueEmail = true;
+    })
+    .AddErrorDescriber<RussianErrorDescriber>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultUI();
+    .AddDefaultUI()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddDbContext<ApplicationDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnection")));
