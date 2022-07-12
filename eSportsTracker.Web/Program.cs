@@ -12,7 +12,6 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
     })
     .AddErrorDescriber<RussianErrorDescriber>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultUI()
     .AddDefaultTokenProviders();
 
 builder.Services.AddDbContext<ApplicationDbContext>(
